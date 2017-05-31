@@ -7,106 +7,87 @@ public class Main {
 	private static Casa valorAtual = matriz[0][0];
 	private static String[][] Stringaux = new String[10][10];
 	private static int[][] Matrizaux = new int[10][10];
-	
-	
-	
-	static void andar(int posicaox, int posicaoy) {
-		//mover para cima
-		if (posicaoy != 0){
-			if (matriz[posicaox - 1][posicaoy] != null) {
-				if (matriz[posicaox - 1][posicaoy].isClosed() == false) {
-					System.out.println("movmendo para cima");
-					
-					matriz[posicaox][posicaoy].setClosed(true);
-					matriz[posicaox][posicaoy].setTipo("-");
-					valorAtual = matriz[posicaox - 1][posicaoy];
-					matriz[posicaox - 1][posicaoy].setTipo("R");
-					//apoio, retirar dps
-					Stringaux[posicaox - 1][posicaoy] = "R";
-					Stringaux[posicaox][posicaoy] = "L";
-					valorAtual.setTipo(Stringaux[posicaox - 1][posicaoy]);
-					valorAtual.setValor(Matrizaux[posicaox + 1][posicaoy]);
-					valorAtual.setPosicao(posicaox+1, posicaoy);
-					System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
-					
-					
+
+	static void andarCima(int posicaox, int posicaoy) {
+		Stringaux[posicaox - 1][posicaoy] = "R";
+		Stringaux[posicaox][posicaoy] = "L";
+		valorAtual.setTipo(Stringaux[posicaox - 1][posicaoy]);
+		valorAtual.setValor(Matrizaux[posicaox - 1][posicaoy]);
+		valorAtual.setPosicao(posicaox-1, posicaoy);
+		System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
+	}
+	static void andarBaixo(int posicaox, int posicaoy) {
+		Stringaux[posicaox + 1][posicaoy] = "R";
+		Stringaux[posicaox][posicaoy] = "L";
+		valorAtual.setTipo(Stringaux[posicaox + 1][posicaoy]);
+		valorAtual.setValor(Matrizaux[posicaox + 1][posicaoy]);
+		valorAtual.setPosicao(posicaox+1, posicaoy);
+		System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
+	}
+	static void andarDireita(int posicaox, int posicaoy) {
+		Stringaux[posicaox][posicaoy + 1] = "R";
+		Stringaux[posicaox][posicaoy] = "L";
+		valorAtual.setTipo(Stringaux[posicaox][posicaoy  + 1]);
+		valorAtual.setValor(Matrizaux[posicaox][posicaoy  + 1]);
+		valorAtual.setPosicao(posicaox, posicaoy + 1);
+		System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
+	}
+	static void andarEsquerda(int posicaox, int posicaoy) {
+		Stringaux[posicaox][posicaoy - 1] = "R";
+		Stringaux[posicaox][posicaoy] = "L";
+		valorAtual.setTipo(Stringaux[posicaox][posicaoy  - 1]);
+		valorAtual.setValor(Matrizaux[posicaox][posicaoy  - 1]);
+		valorAtual.setPosicao(posicaox, posicaoy - 1);
+		System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
+	}
+
+
+
+	static boolean isClosed(int posicaox, int posicaoy){
+		if(!Stringaux[posicaox][posicaoy].equals("P")){ //no caso aquiso para teste, dps usar campo isclosed objeto.isclosed
+			return true;
+		}
+		return false;
+	}
+
+
+	static void acao(int posicaox, int posicaoy) {
+
+		if (posicaox == 0) {
+			if (posicaoy > 0 && posicaoy < 9) {
+				// pode andar baixo, direita, esquerda
+				//verificar posicao baixo
+				if(isClosed(posicaox+1, posicaoy) == false){
+					andarBaixo(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				}else{ 
+				//verificar posicao direita
 				}
-			}
-		//mover para baixo
-		}else if (posicaoy != 9 && posicaox < 9){
-			System.out.println("Teste");
-			if (matriz[posicaox + 1][posicaoy] != null) {
-				if (matriz[posicaox + 1][posicaoy].isClosed() == false) {
-					System.out.println("movmendo para baixo");
-					
-					/*matriz[posicaox][posicaoy].setClosed(true);
-					matriz[posicaox][posicaoy].setTipo("-");
-					valorAtual = matriz[posicaox + 1][posicaoy];
-					matriz[posicaox + 1][posicaoy].setTipo("R");*/
-					
-					//apoio, retirar dps
-					Stringaux[posicaox + 1][posicaoy] = "R";
-					Stringaux[posicaox][posicaoy] = "-";
-					valorAtual.setTipo(Stringaux[posicaox + 1][posicaoy]);
-					valorAtual.setValor(Matrizaux[posicaox + 1][posicaoy]);
-					valorAtual.setPosicao(posicaox+1, posicaoy);
-					System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
-					
-					
-					
-					
-				}
-			}
-		}else if (posicaox != 9){
-			
-			if (matriz[posicaox][posicaoy+1] != null) {
-				if (matriz[posicaox][posicaoy+1].isClosed() == false) {
-					System.out.println("movmendo para direita");
-				/*
-				matriz[posicaox][posicaoy].setClosed(true);
-				matriz[posicaox][posicaoy].setTipo("-");
-				valorAtual = matriz[posicaox][posicaoy+1];
-				matriz[posicaox][posicaoy+1].setTipo("R");*/
 				
-				//apoio, retirar dps
-					Stringaux[posicaox][posicaoy+1] = "R";
-					Stringaux[posicaox][posicaoy] = "-";
-					valorAtual.setTipo(Stringaux[posicaox][posicaoy+1]);
-					valorAtual.setValor(Matrizaux[posicaox ][posicaoy+1]);
-					valorAtual.setPosicao(posicaox, posicaoy+1);
-					System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
-					
+			} else if (posicaoy == 9) {
+				// pode andar Esquerda, baixo
+			} else if (posicaoy == 0) {
+				// pode direita, baixo
+			}
+		} else if (posicaox > 0) {
+			if (posicaoy == 0 && posicaox < 9) {
+				// mover direita, cima, baixo
+			} else if (posicaoy == 0 && posicaox == 9) {
+				// mover cima, direita
+			} else if (posicaoy > 0 && posicaox < 9 && posicaoy < 9) {
+				// mover cima, direita, baixo, esquerda
+
+			} else if (posicaoy == 9 && posicaox < 9) {
+				// esquerda, cima, baixo
+			} else if (posicaoy == 9 && posicaox == 9) {
+				// cima, esquerda
+			} else if (posicaoy > 0 && posicaoy < 9 && posicaox == 9) {
+				// cima, direita, esquerda
 			}
 		}
-		}else if (posicaoy != 0){
-			if (matriz[posicaox][posicaoy -1] != null) {
-				if (matriz[posicaox][posicaoy -1].isClosed() == false) {
-					System.out.println("movmendo para esquerda");
-				
-					matriz[posicaox][posicaoy].setClosed(true);
-					matriz[posicaox][posicaoy].setTipo("-");
-					valorAtual = matriz[posicaox - 1][posicaoy];
-					matriz[posicaox][posicaoy-1].setTipo("R");
-					
-					//apoio, retirar dps
-					Stringaux[posicaox][posicaoy-1] = "R";
-					Stringaux[posicaox][posicaoy] = "L";
-					valorAtual.setTipo(Stringaux[posicaox][posicaoy-1]);
-					valorAtual.setValor(Matrizaux[posicaox][posicaoy-1]);
-					valorAtual.setPosicao(posicaox, posicaoy-1);
-					System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
-				
-				}
-			}
-		}else{
-			System.out.println("movmendo para lugar nenhum");
-		}
+
 	}
 
 	public static void main(String[] args) {
-
-		
-		
 
 		Stringaux[0][0] = "R";
 		Stringaux[0][1] = "P";
@@ -328,19 +309,18 @@ public class Main {
 		Matrizaux[9][8] = 0;
 		Matrizaux[9][9] = 0;
 
-	/*	for (int i = 0; i < matriz.length; i++) {
-			String log = " ";
-			for (int j = 0; j < matriz.length; j++) {
-				matriz[i][j] = new Casa(Stringaux[i][j], Matrizaux[i][j]);
-				log = log + "[" + matriz[i][j].getTipo() + "] ";
-			}
-			System.out.println(log);
+		/*
+		 * for (int i = 0; i < matriz.length; i++) { String log = " "; for (int
+		 * j = 0; j < matriz.length; j++) { matriz[i][j] = new
+		 * Casa(Stringaux[i][j], Matrizaux[i][j]); log = log + "[" +
+		 * matriz[i][j].getTipo() + "] "; } System.out.println(log);
+		 * 
+		 * }
+		 */
 
-		}*/
-		
 		valorAtual = new Casa(Stringaux[0][0], Matrizaux[0][0]);
-		estadoFinal= new Casa(Stringaux[9][9], Matrizaux[9][9]);
-		
+		estadoFinal = new Casa(Stringaux[9][9], Matrizaux[9][9]);
+
 		while (!valorAtual.getTipo().equals(estadoFinal.getTipo())) {
 			for (int i = 0; i < matriz.length; i++) {
 				String log = " ";
@@ -353,16 +333,16 @@ public class Main {
 					}
 				}
 				System.out.println(log);
-				
+
 			}
-			
+
 			System.out.println("\n");
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException ex) {
 			}
-			
-			andar(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+
+			acao(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
 		}
 	}
 }

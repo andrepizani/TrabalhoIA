@@ -10,78 +10,132 @@ public class Main {
 
 	static void andarCima(int posicaox, int posicaoy) {
 		Stringaux[posicaox - 1][posicaoy] = "R";
-		Stringaux[posicaox][posicaoy] = "L";
+		Stringaux[posicaox][posicaoy] = "-";
 		valorAtual.setTipo(Stringaux[posicaox - 1][posicaoy]);
 		valorAtual.setValor(Matrizaux[posicaox - 1][posicaoy]);
-		valorAtual.setPosicao(posicaox-1, posicaoy);
+		valorAtual.setPosicao(posicaox - 1, posicaoy);
 		System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
 	}
+
 	static void andarBaixo(int posicaox, int posicaoy) {
 		Stringaux[posicaox + 1][posicaoy] = "R";
-		Stringaux[posicaox][posicaoy] = "L";
+		Stringaux[posicaox][posicaoy] = "-";
 		valorAtual.setTipo(Stringaux[posicaox + 1][posicaoy]);
 		valorAtual.setValor(Matrizaux[posicaox + 1][posicaoy]);
-		valorAtual.setPosicao(posicaox+1, posicaoy);
+		valorAtual.setPosicao(posicaox + 1, posicaoy);
 		System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
 	}
+
 	static void andarDireita(int posicaox, int posicaoy) {
 		Stringaux[posicaox][posicaoy + 1] = "R";
-		Stringaux[posicaox][posicaoy] = "L";
-		valorAtual.setTipo(Stringaux[posicaox][posicaoy  + 1]);
-		valorAtual.setValor(Matrizaux[posicaox][posicaoy  + 1]);
+		Stringaux[posicaox][posicaoy] = "-";
+		valorAtual.setTipo(Stringaux[posicaox][posicaoy + 1]);
+		valorAtual.setValor(Matrizaux[posicaox][posicaoy + 1]);
 		valorAtual.setPosicao(posicaox, posicaoy + 1);
 		System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
 	}
+
 	static void andarEsquerda(int posicaox, int posicaoy) {
 		Stringaux[posicaox][posicaoy - 1] = "R";
-		Stringaux[posicaox][posicaoy] = "L";
-		valorAtual.setTipo(Stringaux[posicaox][posicaoy  - 1]);
-		valorAtual.setValor(Matrizaux[posicaox][posicaoy  - 1]);
+		Stringaux[posicaox][posicaoy] = "-";
+		valorAtual.setTipo(Stringaux[posicaox][posicaoy - 1]);
+		valorAtual.setValor(Matrizaux[posicaox][posicaoy - 1]);
 		valorAtual.setPosicao(posicaox, posicaoy - 1);
 		System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
 	}
 
-
-
-	static boolean isClosed(int posicaox, int posicaoy){
-		if(!Stringaux[posicaox][posicaoy].equals("P")){ //no caso aquiso para teste, dps usar campo isclosed objeto.isclosed
+	static boolean isClosed(int posicaox, int posicaoy) {
+		if (Stringaux[posicaox][posicaoy].equals("P") || Stringaux[posicaox][posicaoy].equals("-")) { // no caso aquiso para
+															// teste, dps usar
+															// campo isclosed
+															// objeto.isclosed
 			return true;
 		}
 		return false;
 	}
-
 
 	static void acao(int posicaox, int posicaoy) {
 
 		if (posicaox == 0) {
 			if (posicaoy > 0 && posicaoy < 9) {
 				// pode andar baixo, direita, esquerda
-				//verificar posicao baixo
-				if(isClosed(posicaox+1, posicaoy) == false){
+				// verificar posicao baixo
+				if (isClosed(posicaox + 1, posicaoy) == false) {
 					andarBaixo(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
-				}else{ 
-				//verificar posicao direita
+				} else if (isClosed(posicaox, posicaoy + 1) == false) {
+					andarDireita(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} else if (isClosed(posicaox, posicaoy - 1) == false) {
+					andarEsquerda(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
 				}
-				
 			} else if (posicaoy == 9) {
 				// pode andar Esquerda, baixo
+				if (isClosed(posicaox + 1, posicaoy) == false) {
+					andarBaixo(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} else if (isClosed(posicaox, posicaoy - 1) == false) {
+					andarEsquerda(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				}
 			} else if (posicaoy == 0) {
 				// pode direita, baixo
+				if (isClosed(posicaox + 1, posicaoy) == false) {
+					andarBaixo(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} else if (isClosed(posicaox, posicaoy + 1) == false) {
+					andarDireita(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				}
 			}
 		} else if (posicaox > 0) {
 			if (posicaoy == 0 && posicaox < 9) {
 				// mover direita, cima, baixo
+				if (isClosed(posicaox - 1, posicaoy) == false) {
+					andarCima(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				}  else if (isClosed(posicaox + 1, posicaoy) == false) {
+					andarBaixo(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				}	else if (isClosed(posicaox, posicaoy + 1) == false) {
+					andarDireita(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} 
 			} else if (posicaoy == 0 && posicaox == 9) {
 				// mover cima, direita
+				if (isClosed(posicaox - 1, posicaoy) == false) {
+					andarCima(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} else if (isClosed(posicaox, posicaoy + 1) == false) {
+					andarDireita(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				}
 			} else if (posicaoy > 0 && posicaox < 9 && posicaoy < 9) {
 				// mover cima, direita, baixo, esquerda
+				if (isClosed(posicaox - 1, posicaoy) == false) {
+					andarCima(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} else if (isClosed(posicaox + 1, posicaoy) == false) {
+					andarBaixo(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} else if (isClosed(posicaox, posicaoy + 1) == false) {
+					andarDireita(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} else if (isClosed(posicaox, posicaoy - 1) == false) {
+					andarEsquerda(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				}
 
-			} else if (posicaoy == 9 && posicaox < 9) {
+			} else if (posicaoy == 9 && posicaox < 9 && posicaox >0) {
 				// esquerda, cima, baixo
+				if (isClosed(posicaox - 1, posicaoy) == false) {
+					andarCima(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} else if (isClosed(posicaox + 1, posicaoy) == false) {
+					andarBaixo(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} else if (isClosed(posicaox, posicaoy - 1) == false) {
+					andarEsquerda(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				}
 			} else if (posicaoy == 9 && posicaox == 9) {
 				// cima, esquerda
+				if (isClosed(posicaox - 1, posicaoy) == false) {
+					andarCima(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} else if (isClosed(posicaox, posicaoy - 1) == false) {
+					andarEsquerda(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				}
 			} else if (posicaoy > 0 && posicaoy < 9 && posicaox == 9) {
 				// cima, direita, esquerda
+				if (isClosed(posicaox - 1, posicaoy) == false) {
+					andarCima(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} else if (isClosed(posicaox, posicaoy + 1) == false) {
+					andarDireita(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				} else if (isClosed(posicaox, posicaoy - 1) == false) {
+					andarEsquerda(valorAtual.getPosicaox(), valorAtual.getPosicaoy());
+				}
 			}
 		}
 

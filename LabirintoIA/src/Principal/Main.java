@@ -13,32 +13,44 @@ public class Main {
 		matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].setTipo("R");
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setTipo("-");
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
+		valorAtual.setValor(matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].getValor());
 		valorAtual.setTipo(matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].getTipo());
 		valorAtual.setPosicao(valorAtual.getPosicaox() - 1, valorAtual.getPosicaoy());
+		
+		vida += valorAtual.getValor();
 	}
 
 	static void andarBaixo() {
 		matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].setTipo("R");
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setTipo("-");
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
+		valorAtual.setValor(matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].getValor());
 		valorAtual.setTipo(matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].getTipo());
 		valorAtual.setPosicao(valorAtual.getPosicaox() + 1, valorAtual.getPosicaoy());
+		
+		vida += valorAtual.getValor();
 	}
 
 	static void andarDireita() {
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].setTipo("R");
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setTipo("-");
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
+		valorAtual.setValor(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()+1].getValor());
 		valorAtual.setTipo(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].getTipo());
 		valorAtual.setPosicao(valorAtual.getPosicaox(), valorAtual.getPosicaoy() + 1);
+		
+		vida += valorAtual.getValor();
 	}
 
 	static void andarEsquerda() {
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].setTipo("R");
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setTipo("-");
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
+		valorAtual.setValor(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].getValor());
 		valorAtual.setTipo(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].getTipo());
 		valorAtual.setPosicao(valorAtual.getPosicaox(), valorAtual.getPosicaoy() - 1);
+		
+		vida += valorAtual.getValor();
 	}
 
 	static void acao() {
@@ -49,7 +61,6 @@ public class Main {
 				if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
 				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
-					System.out.println("chama eu");
 					andarDireita();
 				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
@@ -76,6 +87,7 @@ public class Main {
 
 				if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
 					andarCima();
+					
 				} else if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
 				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
@@ -242,7 +254,11 @@ public class Main {
 		valorAtual.setPosicao(0, 0);
 		estadoFinal.setPosicao(9, 9);
 		while (!valorAtual.getPosicao().equals(estadoFinal.getPosicao())) {
-			System.out.println(valorAtual.getPosicao());
+			System.out.println("Quantidade de Paredes (P): " + numeroParedes);
+			System.out.println("5 Vidas de +5 | 3 Vidas de +10");
+			System.out.println("Posição Atual: "+ valorAtual.getPosicao() +" | Posição Final: " + estadoFinal.getPosicao());
+			System.out.println("Vida: " + vida);
+
 			mostrar();
 			try {
 				Thread.sleep(500);

@@ -3,8 +3,8 @@ package Principal;
 public class Main {
 
 	private static Casa[][] matriz = new Casa[10][10];
-	private static Casa estadoFinal = matriz[9][9];
-	private static Casa valorAtual = matriz[0][0];
+	private static Casa estadoFinal;
+	private static Casa valorAtual;
 	private static String[][] Stringaux = new String[10][10];
 	private static int[][] Matrizaux = new int[10][10];
 
@@ -162,8 +162,8 @@ public class Main {
 		Stringaux[1][5] = "L";
 		Stringaux[1][6] = "P";
 		Stringaux[1][7] = "P";
-		Stringaux[1][8] = "P";
-		Stringaux[1][9] = "P";
+		Stringaux[1][8] = "F";
+		Stringaux[1][9] = "L";
 
 		Stringaux[2][0] = "L";
 		Stringaux[2][1] = "V";
@@ -178,7 +178,7 @@ public class Main {
 
 		Stringaux[3][0] = "L";
 		Stringaux[3][1] = "P";
-		Stringaux[3][2] = "P";
+		Stringaux[3][2] = "L";
 		Stringaux[3][3] = "P";
 		Stringaux[3][4] = "V";
 		Stringaux[3][5] = "L";
@@ -251,7 +251,7 @@ public class Main {
 		Stringaux[9][6] = "L";
 		Stringaux[9][7] = "P";
 		Stringaux[9][8] = "P";
-		Stringaux[9][9] = "F";
+		Stringaux[9][9] = "L";
 
 		Matrizaux[0][0] = 0;
 		Matrizaux[0][1] = 0;
@@ -272,7 +272,7 @@ public class Main {
 		Matrizaux[1][5] = -1;
 		Matrizaux[1][6] = 0;
 		Matrizaux[1][7] = 0;
-		Matrizaux[1][8] = 0;
+		Matrizaux[1][8] = 20;
 		Matrizaux[1][9] = 0;
 
 		Matrizaux[2][0] = -1;
@@ -373,9 +373,13 @@ public class Main {
 		 */
 
 		valorAtual = new Casa(Stringaux[0][0], Matrizaux[0][0]);
-		estadoFinal = new Casa(Stringaux[9][9], Matrizaux[9][9]);
-
-		while (!valorAtual.getTipo().equals(estadoFinal.getTipo())) {
+		valorAtual.setPosicaox(0);
+		valorAtual.setPosicaoy(0);
+		estadoFinal = new Casa(Stringaux[9][9], Matrizaux[1][8]);
+		estadoFinal.setPosicaox(1);
+		
+		
+		while (valorAtual.getValor() != estadoFinal.getValor()) {
 			for (int i = 0; i < matriz.length; i++) {
 				String log = " ";
 				for (int j = 0; j < matriz.length; j++) {

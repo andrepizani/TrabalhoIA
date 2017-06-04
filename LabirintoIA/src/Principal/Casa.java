@@ -20,6 +20,9 @@ public class Casa {
 		this.setTipo(tipo);
 		this.setValor(valor);
 	}
+	public Casa(){
+
+	}
 	
 	public String getTipo() {
 		return tipo;
@@ -53,8 +56,7 @@ public class Casa {
 	public void setValor(int valor) {
 		this.valor = valor;
 	}
-	
-	
+
 
 	
 	

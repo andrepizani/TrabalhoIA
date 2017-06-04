@@ -15,7 +15,6 @@ public class Main {
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
 		valorAtual.setTipo(matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].getTipo());
 		valorAtual.setPosicao(valorAtual.getPosicaox() - 1, valorAtual.getPosicaoy());
-		System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
 	}
 
 	static void andarBaixo() {
@@ -24,7 +23,6 @@ public class Main {
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
 		valorAtual.setTipo(matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].getTipo());
 		valorAtual.setPosicao(valorAtual.getPosicaox() + 1, valorAtual.getPosicaoy());
-		System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
 	}
 
 	static void andarDireita() {
@@ -33,7 +31,6 @@ public class Main {
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
 		valorAtual.setTipo(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].getTipo());
 		valorAtual.setPosicao(valorAtual.getPosicaox(), valorAtual.getPosicaoy() + 1);
-		System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
 	}
 
 	static void andarEsquerda() {
@@ -42,7 +39,6 @@ public class Main {
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
 		valorAtual.setTipo(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].getTipo());
 		valorAtual.setPosicao(valorAtual.getPosicaox(), valorAtual.getPosicaoy() - 1);
-		System.out.println(valorAtual.getPosicaox() + ", " + valorAtual.getPosicaoy());
 	}
 
 	static void acao() {
@@ -144,7 +140,6 @@ public class Main {
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				if (posicaox == i && posicaoy == j) {
-					System.out.println(posicaox + ", " + posicaoy);
 					if (tipo.equals("P")) {
 						matriz[i][j].setClosed(true);
 					}
@@ -192,7 +187,7 @@ public class Main {
 
 		// gerando paredes
 		Random r = new Random();
-		int numeroParedes = 4;
+		int numeroParedes = r.nextInt(15) + 10;
 		System.out.println("Numero de paredes é " + numeroParedes);
 		// gerando posicoes da parede
 		for (int i = 1; i <= numeroParedes; i++) {
@@ -207,7 +202,6 @@ public class Main {
 			if (matriz[posicaox][posicaoy].getTipo().equals("L")) {
 				prencher(posicaox, posicaoy, "P", 0);
 			} else {
-				System.out.println("Cai aqui");
 				i--;
 			}
 		}
@@ -224,7 +218,6 @@ public class Main {
 			if (matriz[posicaox][posicaoy].getTipo().equals("L")) {
 				prencher(posicaox, posicaoy, "C", 5);
 			} else {
-				System.out.println("Cai aqui");
 				i--;
 			}
 		}
@@ -241,7 +234,6 @@ public class Main {
 			if (matriz[posicaox][posicaoy].getTipo().equals("L")) {
 				prencher(posicaox, posicaoy, "D", 10);
 			} else {
-				System.out.println("Cai aqui");
 				i--;
 			}
 		}

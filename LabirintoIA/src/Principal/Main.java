@@ -16,7 +16,7 @@ public class Main {
 		valorAtual.setValor(matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].getValor());
 		valorAtual.setTipo(matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].getTipo());
 		valorAtual.setPosicao(valorAtual.getPosicaox() - 1, valorAtual.getPosicaoy());
-		
+
 		vida += valorAtual.getValor();
 	}
 
@@ -27,7 +27,7 @@ public class Main {
 		valorAtual.setValor(matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].getValor());
 		valorAtual.setTipo(matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].getTipo());
 		valorAtual.setPosicao(valorAtual.getPosicaox() + 1, valorAtual.getPosicaoy());
-		
+
 		vida += valorAtual.getValor();
 	}
 
@@ -35,10 +35,10 @@ public class Main {
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].setTipo("R");
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setTipo("-");
 		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
-		valorAtual.setValor(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()+1].getValor());
+		valorAtual.setValor(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].getValor());
 		valorAtual.setTipo(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].getTipo());
 		valorAtual.setPosicao(valorAtual.getPosicaox(), valorAtual.getPosicaoy() + 1);
-		
+
 		vida += valorAtual.getValor();
 	}
 
@@ -49,7 +49,7 @@ public class Main {
 		valorAtual.setValor(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].getValor());
 		valorAtual.setTipo(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].getTipo());
 		valorAtual.setPosicao(valorAtual.getPosicaox(), valorAtual.getPosicaoy() - 1);
-		
+
 		vida += valorAtual.getValor();
 	}
 
@@ -85,68 +85,65 @@ public class Main {
 		} else if (valorAtual.getPosicaox() > 0) {
 			if (valorAtual.getPosicaox() < 9 && valorAtual.getPosicaoy() == 0) {
 
-				if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
-					andarCima();
-					
-				} else if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
 				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
+				} else if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
+					andarCima();
 				}
 
 			} else if (valorAtual.getPosicaox() == 9 && valorAtual.getPosicaoy() == 0) {
 
-				if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
-					andarCima();
-				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
+				if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
+				} else if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
+					andarCima();
 				}
 
 			} else if (valorAtual.getPosicaox() < 9 && valorAtual.getPosicaoy() > 0 && valorAtual.getPosicaoy() < 9) {
 
-				if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
-					andarCima();
-				} else if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
 				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
 				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
+				} else if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
+					andarCima();
 				}
 
 			} else if (valorAtual.getPosicaox() > 0 && valorAtual.getPosicaox() < 9 && valorAtual.getPosicaoy() == 9) {
 
-				if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
-					andarCima();
-				} else if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
 				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
+				} else if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
+					andarCima();
 				}
 
 			} else if (valorAtual.getPosicaox() == 9 && valorAtual.getPosicaoy() == 9) {
 
-				if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
-					andarCima();
-				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].isClosed() == false) {
+				if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
+				} else if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
+					andarCima();
 				}
 
 			} else if (valorAtual.getPosicaox() == 9 && valorAtual.getPosicaoy() < 9 && valorAtual.getPosicaoy() > 0) {
 
-				if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
-					andarCima();
-				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
+				if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
 				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
+				} else if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
+					andarCima();
 				}
 
 			}
 		}
 	}
-
-	
 
 	static void prencher(int posicaox, int posicaoy, String tipo, int valor) {
 		for (int i = 0; i < 10; i++) {
@@ -253,19 +250,30 @@ public class Main {
 		estadoFinal = new Casa();
 		valorAtual.setPosicao(0, 0);
 		estadoFinal.setPosicao(9, 9);
+		int m = 0;
 		while (!valorAtual.getPosicao().equals(estadoFinal.getPosicao())) {
-			System.out.println("Quantidade de Paredes (P): " + numeroParedes);
-			System.out.println("5 Vidas de +5 | 3 Vidas de +10");
-			System.out.println("Posição Atual: "+ valorAtual.getPosicao() +" | Posição Final: " + estadoFinal.getPosicao());
-			System.out.println("Vida: " + vida);
+			if (vida > 0) {
 
-			mostrar();
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException ex) {
+				System.out.println("Sentido: Baixo, Direita, Esquerda, Cima");
+				System.out.println("Quantidade de Paredes (P): " + numeroParedes);
+				System.out.println("5 Vidas de +5 | 3 Vidas de +10");
+				System.out.println(
+						"Posição Atual: " + valorAtual.getPosicao() + " | Posição Final: " + estadoFinal.getPosicao());
+				System.out.println("Vida: " + vida + " | Movimentos: " + m);
+
+				m++;
+				mostrar();
+				try {
+					Thread.sleep(700);
+				} catch (InterruptedException ex) {
+				}
+				acao();
+			} else {
+				System.out.println("G A M E  O V E R");
+				break;
+
 			}
-			acao();
 		}
-
+		mostrar();
 	}
 }

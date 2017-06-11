@@ -6,138 +6,142 @@ public class Main {
 
 	private static Casa[][] matriz = new Casa[10][10];
 	private static Casa estadoFinal;
-	private static Casa valorAtual;
+	private static Casa estadoAtual;
+	private static Casa estadoAnterior;
 	private static int vida = 50;
-
+	private static int numeroParedes;
+	
 	static void andarCima() {
-		matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].setTipo("R");
-		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setTipo("-");
-		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
-		valorAtual.setValor(matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].getValor());
-		valorAtual.setTipo(matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].getTipo());
-		valorAtual.setPosicao(valorAtual.getPosicaox() - 1, valorAtual.getPosicaoy());
 
-		vida += valorAtual.getValor();
+		matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].setTipo("R");
+		matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy()].setTipo("-");
+		matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy()].setClosed(true);
+		estadoAtual.setValor(matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].getValor());
+		estadoAtual.setTipo(matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].getTipo());
+		estadoAtual.setPosicao(estadoAtual.getPosicaox() - 1, estadoAtual.getPosicaoy());
+
+		vida += estadoAtual.getValor();
 	}
 
 	static void andarBaixo() {
-		matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].setTipo("R");
-		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setTipo("-");
-		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
-		valorAtual.setValor(matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].getValor());
-		valorAtual.setTipo(matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].getTipo());
-		valorAtual.setPosicao(valorAtual.getPosicaox() + 1, valorAtual.getPosicaoy());
+		matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].setTipo("R");
+		matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy()].setTipo("-");
+		matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy()].setClosed(true);
+		estadoAtual.setValor(matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].getValor());
+		estadoAtual.setTipo(matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].getTipo());
+		estadoAtual.setPosicao(estadoAtual.getPosicaox() + 1, estadoAtual.getPosicaoy());
 
-		vida += valorAtual.getValor();
+		vida += estadoAtual.getValor();
 	}
 
 	static void andarDireita() {
-		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].setTipo("R");
-		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setTipo("-");
-		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
-		valorAtual.setValor(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].getValor());
-		valorAtual.setTipo(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].getTipo());
-		valorAtual.setPosicao(valorAtual.getPosicaox(), valorAtual.getPosicaoy() + 1);
+		matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].setTipo("R");
+		matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy()].setTipo("-");
+		matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy()].setClosed(true);
+		estadoAtual.setValor(matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].getValor());
+		estadoAtual.setTipo(matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].getTipo());
+		estadoAtual.setPosicao(estadoAtual.getPosicaox(), estadoAtual.getPosicaoy() + 1);
 
-		vida += valorAtual.getValor();
+		vida += estadoAtual.getValor();
 	}
 
 	static void andarEsquerda() {
-		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].setTipo("R");
-		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setTipo("-");
-		matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy()].setClosed(true);
-		valorAtual.setValor(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].getValor());
-		valorAtual.setTipo(matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].getTipo());
-		valorAtual.setPosicao(valorAtual.getPosicaox(), valorAtual.getPosicaoy() - 1);
 
-		vida += valorAtual.getValor();
+		matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].setTipo("R");
+		matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy()].setTipo("-");
+		matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy()].setClosed(true);
+		estadoAtual.setValor(matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].getValor());
+		estadoAtual.setTipo(matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].getTipo());
+		estadoAtual.setPosicao(estadoAtual.getPosicaox(), estadoAtual.getPosicaoy() - 1);
+
+		vida += estadoAtual.getValor();
 	}
 
 	static void acao() {
+		estadoAnterior.setPosicao(estadoAtual.getPosicaox(), estadoAtual.getPosicaoy());
+		if (estadoAtual.getPosicaox() == 0) {
+			if (estadoAtual.getPosicaox() > 0 && estadoAtual.getPosicaoy() < 9) {
 
-		if (valorAtual.getPosicaox() == 0) {
-			if (valorAtual.getPosicaox() > 0 && valorAtual.getPosicaoy() < 9) {
-
-				if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
-				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
-				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
 				}
 
-			} else if (valorAtual.getPosicaoy() == 9) {
+			} else if (estadoAtual.getPosicaoy() == 9) {
 
-				if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
-				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
 				}
 
-			} else if (valorAtual.getPosicaox() == 0) {
+			} else if (estadoAtual.getPosicaox() == 0) {
 
-				if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
-				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
 				}
 			}
-		} else if (valorAtual.getPosicaox() > 0) {
-			if (valorAtual.getPosicaox() < 9 && valorAtual.getPosicaoy() == 0) {
+		} else if (estadoAtual.getPosicaox() > 0) {
+			if (estadoAtual.getPosicaox() < 9 && estadoAtual.getPosicaoy() == 0) {
 
-				if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
-				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
-				} else if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarCima();
 				}
 
-			} else if (valorAtual.getPosicaox() == 9 && valorAtual.getPosicaoy() == 0) {
+			} else if (estadoAtual.getPosicaox() == 9 && estadoAtual.getPosicaoy() == 0) {
 
-				if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
+				if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
-				} else if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarCima();
 				}
 
-			} else if (valorAtual.getPosicaox() < 9 && valorAtual.getPosicaoy() > 0 && valorAtual.getPosicaoy() < 9) {
+			} else if (estadoAtual.getPosicaox() < 9 && estadoAtual.getPosicaoy() > 0 && estadoAtual.getPosicaoy() < 9) {
 
-				if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
-				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
-				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
-				} else if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarCima();
 				}
 
-			} else if (valorAtual.getPosicaox() > 0 && valorAtual.getPosicaox() < 9 && valorAtual.getPosicaoy() == 9) {
+			} else if (estadoAtual.getPosicaox() > 0 && estadoAtual.getPosicaox() < 9 && estadoAtual.getPosicaoy() == 9) {
 
-				if (matriz[valorAtual.getPosicaox() + 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
-				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
-				} else if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarCima();
 				}
 
-			} else if (valorAtual.getPosicaox() == 9 && valorAtual.getPosicaoy() == 9) {
+			} else if (estadoAtual.getPosicaox() == 9 && estadoAtual.getPosicaoy() == 9) {
 
-				if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].isClosed() == false) {
+				if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
-				} else if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarCima();
 				}
 
-			} else if (valorAtual.getPosicaox() == 9 && valorAtual.getPosicaoy() < 9 && valorAtual.getPosicaoy() > 0) {
+			} else if (estadoAtual.getPosicaox() == 9 && estadoAtual.getPosicaoy() < 9 && estadoAtual.getPosicaoy() > 0) {
 
-				if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() + 1].isClosed() == false) {
+				if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
-				} else if (matriz[valorAtual.getPosicaox()][valorAtual.getPosicaoy() - 1].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
-				} else if (matriz[valorAtual.getPosicaox() - 1][valorAtual.getPosicaoy()].isClosed() == false) {
+				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarCima();
 				}
 
@@ -178,8 +182,10 @@ public class Main {
 		System.out.println("\n");
 
 	}
-
-	public static void main(String[] args) {
+	
+	static void gerador(){
+		
+		//gerando matriz
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				Casa teste = new Casa();
@@ -188,16 +194,15 @@ public class Main {
 				matriz[i][j] = teste;
 			}
 		}
-
+		//definindo inicio e fim
 		matriz[0][0].setTipo("R");
 		matriz[0][0].setPosicao(0, 0);
 		matriz[9][9].setTipo("F");
 		matriz[9][9].setPosicao(9, 9);
-
+		
 		// gerando paredes
 		Random r = new Random();
-		int numeroParedes = r.nextInt(15) + 10;
-		System.out.println("Numero de paredes é " + numeroParedes);
+		numeroParedes = r.nextInt(15) + 10;
 		// gerando posicoes da parede
 		for (int i = 1; i <= numeroParedes; i++) {
 			Random posicao = new Random();
@@ -246,25 +251,35 @@ public class Main {
 				i--;
 			}
 		}
-		valorAtual = new Casa();
-		estadoFinal = new Casa();
-		valorAtual.setPosicao(0, 0);
-		estadoFinal.setPosicao(9, 9);
-		int m = 0;
-		while (!valorAtual.getPosicao().equals(estadoFinal.getPosicao())) {
-			if (vida > 0) {
+	}
 
+	public static void main(String[] args) {
+		
+		
+		gerador();
+		estadoAtual = new Casa();
+		estadoFinal = new Casa();
+		estadoAtual.setPosicao(0, 0);
+		estadoFinal.setPosicao(9, 9);
+		estadoAnterior = new Casa();
+		estadoAnterior.setPosicao(9, 9);
+		int m = 0; 
+		
+		while (!estadoAtual.getPosicao().equals(estadoFinal.getPosicao())) {
+			
+			if (vida > 0 && !estadoAtual.getPosicao().equals(estadoAnterior.getPosicao())){
+				
 				System.out.println("Sentido: Baixo, Direita, Esquerda, Cima");
 				System.out.println("Quantidade de Paredes (P): " + numeroParedes);
 				System.out.println("5 Vidas de +5 | 3 Vidas de +10");
 				System.out.println(
-						"Posição Atual: " + valorAtual.getPosicao() + " | Posição Final: " + estadoFinal.getPosicao());
+						"Posição Atual: " + estadoAtual.getPosicao() + " | Posição Final: " + estadoFinal.getPosicao() + " | Posição Anterior: " + estadoAnterior.getPosicao());
 				System.out.println("Vida: " + vida + " | Movimentos: " + m);
 
 				m++;
 				mostrar();
 				try {
-					Thread.sleep(700);
+					Thread.sleep(100);
 				} catch (InterruptedException ex) {
 				}
 				acao();

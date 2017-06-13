@@ -10,7 +10,7 @@ public class Main {
 	private static Casa estadoAnterior;
 	private static int vida = 50;
 	private static int numeroParedes;
-	
+
 	static void andarCima() {
 
 		matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].setTipo("R");
@@ -105,7 +105,8 @@ public class Main {
 					andarCima();
 				}
 
-			} else if (estadoAtual.getPosicaox() < 9 && estadoAtual.getPosicaoy() > 0 && estadoAtual.getPosicaoy() < 9) {
+			} else if (estadoAtual.getPosicaox() < 9 && estadoAtual.getPosicaoy() > 0
+					&& estadoAtual.getPosicaoy() < 9) {
 
 				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
@@ -117,7 +118,8 @@ public class Main {
 					andarCima();
 				}
 
-			} else if (estadoAtual.getPosicaox() > 0 && estadoAtual.getPosicaox() < 9 && estadoAtual.getPosicaoy() == 9) {
+			} else if (estadoAtual.getPosicaox() > 0 && estadoAtual.getPosicaox() < 9
+					&& estadoAtual.getPosicaoy() == 9) {
 
 				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarBaixo();
@@ -135,7 +137,8 @@ public class Main {
 					andarCima();
 				}
 
-			} else if (estadoAtual.getPosicaox() == 9 && estadoAtual.getPosicaoy() < 9 && estadoAtual.getPosicaoy() > 0) {
+			} else if (estadoAtual.getPosicaox() == 9 && estadoAtual.getPosicaoy() < 9
+					&& estadoAtual.getPosicaoy() > 0) {
 
 				if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
@@ -182,10 +185,10 @@ public class Main {
 		System.out.println("\n");
 
 	}
-	
-	static void gerador(){
-		
-		//gerando matriz
+
+	static void gerador() {
+
+		// gerando matriz
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				Casa teste = new Casa();
@@ -194,12 +197,12 @@ public class Main {
 				matriz[i][j] = teste;
 			}
 		}
-		//definindo inicio e fim
+		// definindo inicio e fim
 		matriz[0][0].setTipo("R");
 		matriz[0][0].setPosicao(0, 0);
 		matriz[9][9].setTipo("F");
 		matriz[9][9].setPosicao(9, 9);
-		
+
 		// gerando paredes
 		Random r = new Random();
 		numeroParedes = r.nextInt(15) + 10;
@@ -253,9 +256,25 @@ public class Main {
 		}
 	}
 
+	static int distancia() {
+		int distancia = 0;
+		Casa aux = new Casa();
+		aux.setPosicao(estadoAtual.getPosicaox(), estadoAtual.getPosicaoy());
+		while (!aux.getPosicao().equals(estadoFinal.getPosicao())) {
+			if (aux.getPosicaoy() < 9) {
+				aux.setPosicao(aux.getPosicaox(), aux.getPosicaoy() + 1);
+				distancia++;
+			} else if (aux.getPosicaoy() == 9) {
+				aux.setPosicao(aux.getPosicaox() + 1, aux.getPosicaoy());
+				distancia++;
+			}
+		}
+
+		return distancia;
+	}
+
 	public static void main(String[] args) {
-		
-		
+
 		gerador();
 		estadoAtual = new Casa();
 		estadoFinal = new Casa();
@@ -263,20 +282,20 @@ public class Main {
 		estadoFinal.setPosicao(9, 9);
 		estadoAnterior = new Casa();
 		estadoAnterior.setPosicao(9, 9);
-		int m = 0; 
-		
+		int movimentos = 0;
+
 		while (!estadoAtual.getPosicao().equals(estadoFinal.getPosicao())) {
-			
-			if (vida > 0 && !estadoAtual.getPosicao().equals(estadoAnterior.getPosicao())){
-				
+
+			if (vida > 0 && !estadoAtual.getPosicao().equals(estadoAnterior.getPosicao())) {
+
 				System.out.println("Sentido: Baixo, Direita, Esquerda, Cima");
 				System.out.println("Quantidade de Paredes (P): " + numeroParedes);
 				System.out.println("5 Vidas de +5 | 3 Vidas de +10");
-				System.out.println(
-						"Posição Atual: " + estadoAtual.getPosicao() + " | Posição Final: " + estadoFinal.getPosicao() + " | Posição Anterior: " + estadoAnterior.getPosicao());
-				System.out.println("Vida: " + vida + " | Movimentos: " + m);
+				System.out.println("Posição Atual: " + estadoAtual.getPosicao() + " | Posição Final: "
+						+ estadoFinal.getPosicao() + " | Posição Anterior: " + estadoAnterior.getPosicao());
+				System.out.println("Vida: " + vida + " | Movimentos: " + movimentos + " | Distancia: " + distancia());
 
-				m++;
+				movimentos++;
 				mostrar();
 				try {
 					Thread.sleep(100);

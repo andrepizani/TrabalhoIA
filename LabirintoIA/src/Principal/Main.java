@@ -10,6 +10,8 @@ public class Main {
 	private static Casa estadoAnterior;
 	private static int vida = 50;
 	private static int numeroParedes;
+	private static int menorValor=50;
+	private static int movimentos = 0;
 
 	static void andarCima() {
 
@@ -57,7 +59,7 @@ public class Main {
 		vida += estadoAtual.getValor();
 	}
 
-	static void acao() {
+	static void buscaLargura() {
 		estadoAnterior.setPosicao(estadoAtual.getPosicaox(), estadoAtual.getPosicaoy());
 		if (estadoAtual.getPosicaox() == 0) {
 			if (estadoAtual.getPosicaox() > 0 && estadoAtual.getPosicaoy() < 9) {
@@ -151,6 +153,66 @@ public class Main {
 			}
 		}
 	}
+	
+	
+	static void algoritmoA() {
+		estadoAnterior.setPosicao(estadoAtual.getPosicaox(), estadoAtual.getPosicaoy());
+	
+		
+		int valorDireita = movimentos + distancia(matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy()+1]);
+		int valorEsquerda = movimentos + distancia(matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy()-1]);
+		int valorCima = movimentos + distancia(matriz[estadoAtual.getPosicaox()-1][estadoAtual.getPosicaoy()]);
+		int valorBaixo = movimentos + distancia(matriz[estadoAtual.getPosicaox()+1][estadoAtual.getPosicaoy()]);
+		
+		menorValor = valorDireita;
+		String sentido = "Direita";
+		
+		if (estadoAtual.getPosicaox() == 0) {
+			if (estadoAtual.getPosicaox() > 0 && estadoAtual.getPosicaoy() < 9) {
+				//baixo direita esquerda
+				if(valorDireita < )
+
+
+			} else if (estadoAtual.getPosicaoy() == 9) {
+
+				//baixo esquerda
+
+			} else if (estadoAtual.getPosicaox() == 0) {
+
+				//baixo direita
+			}
+		} else if (estadoAtual.getPosicaox() > 0) {
+			if (estadoAtual.getPosicaox() < 9 && estadoAtual.getPosicaoy() == 0) {
+
+				//baixo, direita, cima
+
+			} else if (estadoAtual.getPosicaox() == 9 && estadoAtual.getPosicaoy() == 0) {
+
+				//direita cima
+
+			} else if (estadoAtual.getPosicaox() < 9 && estadoAtual.getPosicaoy() > 0
+					&& estadoAtual.getPosicaoy() < 9) {
+
+				//baixo, cima, direita, esqerda
+
+			} else if (estadoAtual.getPosicaox() > 0 && estadoAtual.getPosicaox() < 9
+					&& estadoAtual.getPosicaoy() == 9) {
+
+				//baixo cima, esquerda
+
+			} else if (estadoAtual.getPosicaox() == 9 && estadoAtual.getPosicaoy() == 9) {
+
+				//esquerda cima
+
+			} else if (estadoAtual.getPosicaox() == 9 && estadoAtual.getPosicaoy() < 9
+					&& estadoAtual.getPosicaoy() > 0) {
+
+				//direita esquerda cima
+
+			}
+		}
+	}
+	
 
 	static void prencher(int posicaox, int posicaoy, String tipo, int valor) {
 		for (int i = 0; i < 10; i++) {
@@ -256,10 +318,8 @@ public class Main {
 		}
 	}
 
-	static int distancia() {
+	static int distancia(Casa aux) {
 		int distancia = 0;
-		Casa aux = new Casa();
-		aux.setPosicao(estadoAtual.getPosicaox(), estadoAtual.getPosicaoy());
 		while (!aux.getPosicao().equals(estadoFinal.getPosicao())) {
 			if (aux.getPosicaoy() < 9) {
 				aux.setPosicao(aux.getPosicaox(), aux.getPosicaoy() + 1);
@@ -282,7 +342,7 @@ public class Main {
 		estadoFinal.setPosicao(9, 9);
 		estadoAnterior = new Casa();
 		estadoAnterior.setPosicao(9, 9);
-		int movimentos = 0;
+		
 
 		while (!estadoAtual.getPosicao().equals(estadoFinal.getPosicao())) {
 
@@ -301,7 +361,7 @@ public class Main {
 					Thread.sleep(100);
 				} catch (InterruptedException ex) {
 				}
-				acao();
+				buscaLargura();
 			} else {
 				System.out.println("G A M E  O V E R");
 				break;

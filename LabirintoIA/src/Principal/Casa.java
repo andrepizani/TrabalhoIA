@@ -8,6 +8,27 @@ public class Casa {
 	private String tipo; 
 	private boolean isClosed = false;
 
+	
+	
+	public int getDistancia(Casa estadoFinal) {
+		int distancia = 0;
+		Casa aux = new Casa();
+		aux.setPosicao(posicaox, posicaoy);
+		
+		while (!aux.getPosicao().equals(estadoFinal.getPosicao())) {
+			if (aux.getPosicaoy() < 9) {
+				aux.setPosicao(aux.getPosicaox(), aux.getPosicaoy() + 1);
+				distancia++;
+			} else if (aux.getPosicaoy() == 9) {
+				aux.setPosicao(aux.getPosicaox() + 1, aux.getPosicaoy());
+				distancia++;
+			}
+		}
+
+		return distancia;
+	}
+
+
 	public boolean isClosed() {
 		return isClosed;
 	}
@@ -21,7 +42,7 @@ public class Casa {
 		this.setValor(valor);
 	}
 	public Casa(){
-
+		
 	}
 	
 	public String getTipo() {

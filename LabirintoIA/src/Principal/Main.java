@@ -170,9 +170,11 @@ public class Main {
 		if (estadoAtual.getPosicaox() == 0) {
 			if (estadoAtual.getPosicaox() > 0 && estadoAtual.getPosicaoy() < 9) {
 				//baixo direita esquerda
-				if(valorDireita < )
-
-
+				if(valorEsquerda < menorValor){
+					menorValor = valorDireita;
+				} else if (valorBaixo < menorValor){
+					menorValor = valorBaixo;
+				}
 			} else if (estadoAtual.getPosicaoy() == 9) {
 
 				//baixo esquerda
@@ -318,20 +320,6 @@ public class Main {
 		}
 	}
 
-	static int distancia(Casa aux) {
-		int distancia = 0;
-		while (!aux.getPosicao().equals(estadoFinal.getPosicao())) {
-			if (aux.getPosicaoy() < 9) {
-				aux.setPosicao(aux.getPosicaox(), aux.getPosicaoy() + 1);
-				distancia++;
-			} else if (aux.getPosicaoy() == 9) {
-				aux.setPosicao(aux.getPosicaox() + 1, aux.getPosicaoy());
-				distancia++;
-			}
-		}
-
-		return distancia;
-	}
 
 	public static void main(String[] args) {
 
@@ -353,7 +341,7 @@ public class Main {
 				System.out.println("5 Vidas de +5 | 3 Vidas de +10");
 				System.out.println("Posição Atual: " + estadoAtual.getPosicao() + " | Posição Final: "
 						+ estadoFinal.getPosicao() + " | Posição Anterior: " + estadoAnterior.getPosicao());
-				System.out.println("Vida: " + vida + " | Movimentos: " + movimentos + " | Distancia: " + distancia());
+				System.out.println("Vida: " + vida + " | Movimentos: " + movimentos + " | Distancia: " + estadoAtual.getDistancia(estadoFinal));
 
 				movimentos++;
 				mostrar();

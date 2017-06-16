@@ -545,7 +545,6 @@ public class Main {
 	public static void main(String[] args) {
 		int opcao = 1;
 		Scanner scan = new Scanner(System.in);
-
 		while (opcao > 0) {
 
 			gerador();
@@ -555,6 +554,7 @@ public class Main {
 			estadoFinal.setPosicao(9, 9);
 			estadoAnterior = new Casa();
 			estadoAnterior.setPosicao(0, -1);
+			movimentos = 0;
 
 			System.out.println("Digite 1 para Busca em Largura ou 2 para Algoritmo A*:");
 			int opcaoIA = Integer.parseInt(scan.nextLine());

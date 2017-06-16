@@ -2,6 +2,8 @@ package Principal;
 
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 public class Main {
 
 	private static Casa[][] matriz = new Casa[10][10];
@@ -10,7 +12,7 @@ public class Main {
 	private static Casa estadoAnterior;
 	private static int vida = 50;
 	private static int numeroParedes;
-	private static int menorValor=50;
+	private static int menorValor = 50;
 	private static int movimentos = 0;
 
 	static void andarCima() {
@@ -153,68 +155,289 @@ public class Main {
 			}
 		}
 	}
-	
-	
+
+	static void realizarMovimento(String movimento) {
+		if (movimento.equals("Direita")) {
+			andarDireita();
+		} else if (movimento.equals("Esquerda")) {
+			andarEsquerda();
+		} else if (movimento.equals("Cima")) {
+			andarCima();
+		} else if (movimento.equals("Baixo")) {
+			andarBaixo();
+		}
+	}
+
 	static void algoritmoA() {
 		estadoAnterior.setPosicao(estadoAtual.getPosicaox(), estadoAtual.getPosicaoy());
-	
-		
-		int valorDireita = movimentos + distancia(matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy()+1]);
-		int valorEsquerda = movimentos + distancia(matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy()-1]);
-		int valorCima = movimentos + distancia(matriz[estadoAtual.getPosicaox()-1][estadoAtual.getPosicaoy()]);
-		int valorBaixo = movimentos + distancia(matriz[estadoAtual.getPosicaox()+1][estadoAtual.getPosicaoy()]);
-		
-		menorValor = valorDireita;
-		String sentido = "Direita";
-		
+		String movimento = "";
+		int direita;
+		int esquerda;
+		int baixo;
+		int cima;
+
 		if (estadoAtual.getPosicaox() == 0) {
+
 			if (estadoAtual.getPosicaox() > 0 && estadoAtual.getPosicaoy() < 9) {
-				//baixo direita esquerda
-				if(valorEsquerda < menorValor){
-					menorValor = valorDireita;
-				} else if (valorBaixo < menorValor){
-					menorValor = valorBaixo;
+
+				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+
+					baixo = matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].getDistancia(estadoFinal);
+
+					if (baixo < menorValor) {
+						menorValor = baixo;
+						movimento = "Baixo";
+					}
+
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
+
+					direita = matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1]
+							.getDistancia(estadoFinal);
+
+					if (direita < menorValor) {
+						menorValor = direita;
+						movimento = "Direita";
+					}
+
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
+
+					esquerda = matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1]
+							.getDistancia(estadoFinal);
+
+					if (esquerda < menorValor) {
+						menorValor = esquerda;
+						movimento = "Esquerda";
+					}
+
 				}
+
 			} else if (estadoAtual.getPosicaoy() == 9) {
 
-				//baixo esquerda
+				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+
+					baixo = matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].getDistancia(estadoFinal);
+
+					if (baixo < menorValor) {
+						menorValor = baixo;
+						movimento = "Baixo";
+					}
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
+
+					esquerda = matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1]
+							.getDistancia(estadoFinal);
+
+					if (esquerda < menorValor) {
+						menorValor = esquerda;
+						movimento = "Esquerda";
+					}
+
+				}
 
 			} else if (estadoAtual.getPosicaox() == 0) {
 
-				//baixo direita
+				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+
+					baixo = matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].getDistancia(estadoFinal);
+
+					if (baixo < menorValor) {
+						menorValor = baixo;
+						movimento = "Baixo";
+					}
+
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
+
+					direita = matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1]
+							.getDistancia(estadoFinal);
+
+					if (direita < menorValor) {
+						menorValor = direita;
+						movimento = "Direita";
+					}
+
+				}
 			}
 		} else if (estadoAtual.getPosicaox() > 0) {
 			if (estadoAtual.getPosicaox() < 9 && estadoAtual.getPosicaoy() == 0) {
 
-				//baixo, direita, cima
+				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+
+					baixo = matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].getDistancia(estadoFinal);
+
+					if (baixo < menorValor) {
+						menorValor = baixo;
+						movimento = "Baixo";
+					}
+
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
+
+					direita = matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1]
+							.getDistancia(estadoFinal);
+
+					if (direita < menorValor) {
+						menorValor = direita;
+						movimento = "Direita";
+					}
+
+				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+
+					cima = matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].getDistancia(estadoFinal);
+
+					if (cima < menorValor) {
+						menorValor = cima;
+						movimento = "Cima";
+					}
+				}
 
 			} else if (estadoAtual.getPosicaox() == 9 && estadoAtual.getPosicaoy() == 0) {
 
-				//direita cima
+				if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
+
+					direita = matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1]
+							.getDistancia(estadoFinal);
+
+					if (direita < menorValor) {
+						menorValor = direita;
+						movimento = "Direita";
+					}
+
+				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+
+					cima = matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].getDistancia(estadoFinal);
+
+					if (cima < menorValor) {
+						menorValor = cima;
+						movimento = "Cima";
+					}
+				}
 
 			} else if (estadoAtual.getPosicaox() < 9 && estadoAtual.getPosicaoy() > 0
 					&& estadoAtual.getPosicaoy() < 9) {
 
-				//baixo, cima, direita, esqerda
+				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+
+					baixo = matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].getDistancia(estadoFinal);
+
+					if (baixo < menorValor) {
+						menorValor = baixo;
+						movimento = "Baixo";
+					}
+
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
+
+					direita = matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1]
+							.getDistancia(estadoFinal);
+
+					if (direita < menorValor) {
+						menorValor = direita;
+						movimento = "Direita";
+					}
+
+				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+
+					cima = matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].getDistancia(estadoFinal);
+
+					if (cima < menorValor) {
+						menorValor = cima;
+						movimento = "Cima";
+					}
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
+
+					esquerda = matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1]
+							.getDistancia(estadoFinal);
+
+					if (esquerda < menorValor) {
+						menorValor = esquerda;
+						movimento = "Esquerda";
+					}
+				}
 
 			} else if (estadoAtual.getPosicaox() > 0 && estadoAtual.getPosicaox() < 9
 					&& estadoAtual.getPosicaoy() == 9) {
 
-				//baixo cima, esquerda
+				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+
+					baixo = matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].getDistancia(estadoFinal);
+
+					if (baixo < menorValor) {
+						menorValor = baixo;
+						movimento = "Baixo";
+					}
+
+				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+
+					cima = matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].getDistancia(estadoFinal);
+
+					if (cima < menorValor) {
+						menorValor = cima;
+						movimento = "Cima";
+					}
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
+
+					esquerda = matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1]
+							.getDistancia(estadoFinal);
+
+					if (esquerda < menorValor) {
+						menorValor = esquerda;
+						movimento = "Esquerda";
+					}
+				}
 
 			} else if (estadoAtual.getPosicaox() == 9 && estadoAtual.getPosicaoy() == 9) {
 
-				//esquerda cima
+				if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+
+					cima = matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].getDistancia(estadoFinal);
+
+					if (cima < menorValor) {
+						menorValor = cima;
+						movimento = "Cima";
+					}
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
+
+					esquerda = matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1]
+							.getDistancia(estadoFinal);
+
+					if (esquerda < menorValor) {
+						menorValor = esquerda;
+						movimento = "Esquerda";
+					}
+				}
 
 			} else if (estadoAtual.getPosicaox() == 9 && estadoAtual.getPosicaoy() < 9
 					&& estadoAtual.getPosicaoy() > 0) {
 
-				//direita esquerda cima
+				if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
 
+					direita = matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1]
+							.getDistancia(estadoFinal);
+
+					if (direita < menorValor) {
+						menorValor = direita;
+						movimento = "Direita";
+					}
+
+				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+
+					cima = matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].getDistancia(estadoFinal);
+
+					if (cima < menorValor) {
+						menorValor = cima;
+						movimento = "Cima";
+					}
+				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
+
+					esquerda = matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1]
+							.getDistancia(estadoFinal);
+
+					if (esquerda < menorValor) {
+						menorValor = esquerda;
+						movimento = "Esquerda";
+					}
+				}
 			}
 		}
+		realizarMovimento(movimento);
 	}
-	
 
 	static void prencher(int posicaox, int posicaoy, String tipo, int valor) {
 		for (int i = 0; i < 10; i++) {
@@ -320,9 +543,10 @@ public class Main {
 		}
 	}
 
-
 	public static void main(String[] args) {
-
+		int escolha = Integer.parseInt(JOptionPane.showInputDialog("Qual método? \n 1) Busca em Largura. \n 2) Algoritmo A*."));
+		
+		
 		gerador();
 		estadoAtual = new Casa();
 		estadoFinal = new Casa();
@@ -330,7 +554,6 @@ public class Main {
 		estadoFinal.setPosicao(9, 9);
 		estadoAnterior = new Casa();
 		estadoAnterior.setPosicao(9, 9);
-		
 
 		while (!estadoAtual.getPosicao().equals(estadoFinal.getPosicao())) {
 
@@ -341,7 +564,8 @@ public class Main {
 				System.out.println("5 Vidas de +5 | 3 Vidas de +10");
 				System.out.println("Posição Atual: " + estadoAtual.getPosicao() + " | Posição Final: "
 						+ estadoFinal.getPosicao() + " | Posição Anterior: " + estadoAnterior.getPosicao());
-				System.out.println("Vida: " + vida + " | Movimentos: " + movimentos + " | Distancia: " + estadoAtual.getDistancia(estadoFinal));
+				System.out.println("Vida: " + vida + " | Movimentos: " + movimentos + " | Distancia: "
+						+ estadoAtual.getDistancia(estadoFinal));
 
 				movimentos++;
 				mostrar();
@@ -349,7 +573,11 @@ public class Main {
 					Thread.sleep(100);
 				} catch (InterruptedException ex) {
 				}
-				buscaLargura();
+				if(escolha == 1){
+					buscaLargura();
+				}else{
+					algoritmoA();
+				}
 			} else {
 				System.out.println("G A M E  O V E R");
 				break;

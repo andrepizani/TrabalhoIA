@@ -64,22 +64,20 @@ public class Main {
 		estadoAnterior.setPosicao(estadoAtual.getPosicaox(), estadoAtual.getPosicaoy());
 		if (estadoAtual.getPosicaox() == 0) {
 			if (estadoAtual.getPosicaox() > 0 && estadoAtual.getPosicaoy() < 9) {
-
-				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
-					andarBaixo();
-				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
+				 if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
+				 }else if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+					andarBaixo();
 				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
 				}
 
 			} else if (estadoAtual.getPosicaoy() == 9) {
-
-				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
-					andarBaixo();
-				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
+				if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
-				}
+				}else if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+					andarBaixo();
+				} 
 
 			} else if (estadoAtual.getPosicaox() == 0) {
 
@@ -110,11 +108,10 @@ public class Main {
 
 			} else if (estadoAtual.getPosicaox() < 9 && estadoAtual.getPosicaoy() > 0
 					&& estadoAtual.getPosicaoy() < 9) {
-
-				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
-					andarBaixo();
-				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
+				if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
+				} else if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+					andarBaixo();
 				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() + 1].isClosed() == false) {
 					andarDireita();
 				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
@@ -123,12 +120,11 @@ public class Main {
 
 			} else if (estadoAtual.getPosicaox() > 0 && estadoAtual.getPosicaox() < 9
 					&& estadoAtual.getPosicaoy() == 9) {
-
-				if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
-					andarBaixo();
-				} else if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
+				if (matriz[estadoAtual.getPosicaox()][estadoAtual.getPosicaoy() - 1].isClosed() == false) {
 					andarEsquerda();
-				} else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+				}else if (matriz[estadoAtual.getPosicaox() + 1][estadoAtual.getPosicaoy()].isClosed() == false) {
+					andarBaixo();
+				}else if (matriz[estadoAtual.getPosicaox() - 1][estadoAtual.getPosicaoy()].isClosed() == false) {
 					andarCima();
 				}
 
@@ -542,10 +538,13 @@ public class Main {
 		}
 	}
 
+	
+
 	public static void main(String[] args) {
 		int opcao = 1;
 		Scanner scan = new Scanner(System.in);
 		while (opcao > 0) {
+			vida = 50;
 
 			gerador();
 			estadoAtual = new Casa();
@@ -556,14 +555,17 @@ public class Main {
 			estadoAnterior.setPosicao(0, -1);
 			movimentos = 0;
 
-			System.out.println("Digite 1 para Busca em Largura ou 2 para Algoritmo A*:");
+			System.out.println("Digite 1 para Busca em Largura ou 2 para Algoritmo A* e tecle enter:");
 			int opcaoIA = Integer.parseInt(scan.nextLine());
 
 			while (!estadoAtual.getPosicao().equals(estadoFinal.getPosicao())) {
 
 				if (vida > 0 && !estadoAtual.getPosicao().equals(estadoAnterior.getPosicao())) {
-
-					System.out.println("Sentido: Baixo, Esquerda, Direita, Cima");
+					
+					if(opcaoIA == 1){
+					System.out.println("Sentido: Esquerda, Baixo, Direita, Cima");
+					}
+					
 					System.out.println("Quantidade de Paredes (P): " + numeroParedes);
 					System.out.println("5 Vidas de +5 | 3 Vidas de +10");
 					System.out.println("Posição Atual: " + estadoAtual.getPosicao() + " | Posição Final: "
@@ -590,7 +592,7 @@ public class Main {
 				}
 			}
 			mostrar();
-			System.out.println("Digite 0 para sair ou 1 para ir novamente:");
+			System.out.println("Digite 0 para sair ou 1 para ir novamente e tecle enter.");
 			opcao = Integer.parseInt(scan.nextLine());
 		}
 	}

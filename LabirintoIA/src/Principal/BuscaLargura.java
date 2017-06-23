@@ -95,5 +95,10 @@ public class BuscaLargura extends Algoritmo {
 		}
 		realizarMovimento(movimento);
 	}
+	
+	public String toString(){
+		System.out.println("Sentido: Esquerda, Baixo, Direita, Cima");
+		return super.toString();
+	}
 
 }

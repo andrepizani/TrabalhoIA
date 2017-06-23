@@ -2,17 +2,17 @@ package Principal;
 
 import java.util.Random;
 
-public  class Algoritmo {
+public class Algoritmo {
 	Casa[][] matriz = new Casa[10][10];
 	Casa estadoFinal;
-	Casa estadoAtual;
+	Casa estadoAtual ;
 	Casa estadoAnterior;
 	int vida = 50;
 	int numeroParedes;
 	int menorValor = 50;
 	int movimentos = 0;
 
-	public void iniciar() {
+	public void instanciar() {
 		estadoAtual = new Casa();
 		estadoFinal = new Casa();
 		estadoAtual.setPosicao(0, 0);
@@ -20,15 +20,43 @@ public  class Algoritmo {
 		estadoAnterior = new Casa();
 		estadoAnterior.setPosicao(0, -1);
 		movimentos = 0;
-
 	}
+	
 
-	public boolean isEnd(){
-		if(estadoAtual.getPosicao().equals(estadoFinal.getPosicao())){
-			return true;
-		}else{
-			return false;
+	public void menu(int opcaoIA){
+		gerador();
+		instanciar();
+		System.out.println(estadoAtual.getPosicao());
+		AlgoritmoA algoA = new AlgoritmoA();
+		BuscaLargura buscaL = new BuscaLargura();
+
+		while (!estadoAtual.getPosicao().equals(estadoFinal.getPosicao())) {
+
+			if (vida > 0 && !estadoAtual.getPosicao().equals(estadoAnterior.getPosicao())) {
+				if (opcaoIA == 1) {
+					buscaL.toString();
+					buscaL.buscaLargura();
+				} else if (opcaoIA == 2) {
+					algoA.toString();
+					algoA.algoritmoA();
+				} else {
+					System.out.println("Opção incorreta.");
+				}
+
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException ex) {
+				}
+
+			} else {
+				System.out.println("G A M E  O V E R");
+
+				break;
+
+			}
 		}
+		algoA.toString();
+		
 	}
 	
 	public void prencher(int posicaox, int posicaoy, String tipo, int valor) {
@@ -180,7 +208,14 @@ public  class Algoritmo {
 
 	public String toString() {
 		String retorno = "";
-
+		
+		System.out.println("Quantidade de Paredes (P): " + numeroParedes);
+		System.out.println("5 Vidas de +5 (C) | 3 Vidas de +10 (D)");
+		System.out.println("Posição Atual: " + estadoAtual.getPosicao() + " | Posição Final: "
+				+ estadoFinal.getPosicao() + " | Posição Anterior: " + estadoAnterior.getPosicao());
+		System.out.println("Vida: " + vida + " | Movimentos: " + movimentos + " | Distancia: "
+				+ estadoAtual.getDistancia(estadoFinal));
+		
 		for (int i = 0; i < matriz.length; i++) {
 			retorno = " ";
 			for (int j = 0; j < matriz.length; j++) {
@@ -192,7 +227,9 @@ public  class Algoritmo {
 				}
 			}
 			System.out.println(retorno);
+			
 		}
+		System.out.println();
 
 		movimentos++;
 		return retorno;
